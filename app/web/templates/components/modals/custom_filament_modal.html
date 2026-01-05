@@ -1,0 +1,50 @@
+<div class="custom-filament-modal is-hidden" id="custom-filament-modal" aria-hidden="true" data-modal-id="customFilament">
+    <div class="custom-filament-modal-backdrop" id="custom-filament-modal-backdrop" data-modal-close="customFilament"></div>
+    <div class="custom-filament-modal-panel" role="dialog" aria-modal="true" aria-labelledby="custom-filament-modal-title">
+        <div class="custom-filament-modal-header">
+            <h3 id="custom-filament-modal-title">Add Custom Filament</h3>
+            <button class="custom-filament-modal-close" id="custom-filament-modal-close" type="button" aria-label="Close" data-modal-close="customFilament">
+                &times;
+            </button>
+        </div>
+        <div class="custom-filament-modal-body">
+            <div class="custom-filament-field">
+                <label for="custom-filament-saved">Custom Filaments</label>
+                <select id="custom-filament-saved" class="custom-filament-select"></select>
+            </div>
+            <div class="custom-filament-field">
+                <label for="custom-filament-candidates">Captured Filaments</label>
+                <select id="custom-filament-candidates" class="custom-filament-select"></select>
+            </div>
+            <div class="custom-filament-field">
+                <label for="custom-filament-alias">Alias</label>
+                <input id="custom-filament-alias" class="custom-filament-input" type="text" placeholder="Custom name" />
+            </div>
+            <div class="custom-filament-field">
+                <label for="custom-filament-setting-id">Setting ID</label>
+                <input id="custom-filament-setting-id" class="custom-filament-input" type="text" />
+            </div>
+            <div class="custom-filament-field">
+                <label for="custom-filament-tray-idx">Tray Info IDX</label>
+                <input id="custom-filament-tray-idx" class="custom-filament-input" type="text" />
+            </div>
+            <div class="custom-filament-field">
+                <label for="custom-filament-tray-type">Tray Type</label>
+                <input id="custom-filament-tray-type" class="custom-filament-input" type="text" />
+            </div>
+            <div class="custom-filament-field">
+                <label for="custom-filament-nozzle-min">Nozzle Temp Min</label>
+                <input id="custom-filament-nozzle-min" class="custom-filament-input" type="number" />
+            </div>
+            <div class="custom-filament-field">
+                <label for="custom-filament-nozzle-max">Nozzle Temp Max</label>
+                <input id="custom-filament-nozzle-max" class="custom-filament-input" type="number" />
+            </div>
+        </div>
+        <div class="custom-filament-modal-actions">
+            <button type="button" class="custom-filament-btn custom-filament-btn--primary" id="custom-filament-save">Save</button>
+            <button type="button" class="custom-filament-btn custom-filament-btn--danger" id="custom-filament-delete">Delete</button>
+            <button type="button" class="custom-filament-btn custom-filament-btn--secondary" id="custom-filament-cancel" data-modal-close="customFilament">Cancel</button>
+        </div>
+    </div>
+</div>

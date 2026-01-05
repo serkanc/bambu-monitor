@@ -1,0 +1,142 @@
+                      <div class="card control-card">
+                          <h2>Printer Controls</h2>
+                          <div class="control-section">
+                              <div class="control-actions">
+                                  <button id="pause-resume-btn" class="primary-btn control-action-btn">
+                                      <span class="control-icon" aria-hidden="true">⏸</span>
+                                      <span class="control-label">Pause</span>
+                                  </button>
+                                  <button id="cancel-btn" class="danger-btn control-action-btn">
+                                      <span class="control-icon" aria-hidden="true">✕</span>
+                                      <span class="control-label">Cancel</span>
+                                  </button>
+                                  <button id="skip-objects-btn" class="control-action-btn">
+                                      <span class="control-icon" aria-hidden="true">>></span>
+                                      <span class="control-label">Skip Object</span>
+                                  </button>
+                              </div>
+                              <div class="control-block chamber-light-block">
+                                  <div class="chamber-light-wrapper">
+                                      <h3>Chamber Light</h3>
+                                      <div class="toggle-group">
+                                          <button class="toggle-btn" data-action="light-on">On</button>
+                                          <button class="toggle-btn" data-action="light-off">Off</button>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="control-tab-group">
+                                  <button class="control-tab is-active" data-tab="movement">Movement</button>
+                                  <button class="control-tab" data-tab="temperatures">Temperatures</button>
+                                  <button class="control-tab" data-tab="extruder">Extruder</button>
+                                  <button class="control-tab" data-tab="speed">Speed Mode</button>
+                              </div>
+                              <div class="control-panel" data-panel="movement">
+                                  <div class="control-block">
+                                      <h3>Movement</h3>
+                                      <div class="step-options centered" id="movement-steps">
+                                          <button data-step="1" class="step-btn active">1 mm</button>
+                                          <button data-step="10" class="step-btn">10 mm</button>
+                                          <button data-step="50" class="step-btn">50 mm</button>
+                                      </div>
+                                      <div class="movement-wrapper">
+                                          <div class="movement-grid">
+                                              <div class="axis-group" data-axis="Y" data-direction="up">
+                                                  <button class="control-btn" aria-label="Y axis up" title="Y axis up"></button>
+                                              </div>
+                                              <div class="axis-group xy-home" data-axis="XY" data-action="home">
+                                                  <button class="control-btn home-btn" aria-label="XY home" title="XY home"></button>
+                                              </div>
+                                              <div class="axis-group" data-axis="X" data-direction="right">
+                                                  <button class="control-btn" aria-label="X axis right" title="X axis right"></button>
+                                              </div>
+                                              <div class="axis-group" data-axis="X" data-direction="left">
+                                                  <button class="control-btn" aria-label="X axis left" title="X axis left"></button>
+                                              </div>
+                                              <div class="axis-group" data-axis="Y" data-direction="down">
+                                                  <button class="control-btn" aria-label="Y axis down" title="Y axis down"></button>
+                                              </div>
+                                          </div>
+                                          <div class="z-grid">
+                                              <div class="axis-group" data-axis="Z" data-direction="up">
+                                                  <button class="control-btn" aria-label="Z axis up" title="Z axis up"></button>
+                                              </div>
+                                              <div class="axis-group z-home" data-axis="Z" data-action="home">
+                                                  <button class="control-btn home-btn" aria-label="Z home" title="Z home"></button>
+                                              </div>
+                                              <div class="axis-group" data-axis="Z" data-direction="down">
+                                                  <button class="control-btn" aria-label="Z axis down" title="Z axis down"></button>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="axis-home-status">
+                                          <div class="axis-home-item" id="axis-home-x">
+                                              <span class="axis-home-dot" aria-hidden="true"></span>
+                                              <span class="axis-home-label">X Axis Home</span>
+                                          </div>
+                                          <div class="axis-home-item" id="axis-home-y">
+                                              <span class="axis-home-dot" aria-hidden="true"></span>
+                                              <span class="axis-home-label">Y Axis Home</span>
+                                          </div>
+                                          <div class="axis-home-item" id="axis-home-z">
+                                              <span class="axis-home-dot" aria-hidden="true"></span>
+                                              <span class="axis-home-label">Z Axis Home</span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="control-panel" data-panel="temperatures" hidden>
+                                  <div class="control-block">
+                                      <h3>Temperatures</h3>
+                                      <div class="form-row">
+                                          <span class="form-label">Nozzle</span>
+                                          <div class="input-group">
+                                              <input type="number" id="set-nozzle-temp" min="0" max="350" value="200">
+                                              <span>&deg;C</span>
+                                              <button class="apply-btn" data-action="set-nozzle">Set</button>
+                                              <button class="apply-btn off-btn" data-action="off-nozzle">Off</button>
+                                          </div>
+                                      </div>
+                                      <div class="form-row">
+                                          <span class="form-label">Bed</span>
+                                          <div class="input-group">
+                                              <input type="number" id="set-bed-temp" min="0" max="120" value="60">
+                                              <span>&deg;C</span>
+                                              <button class="apply-btn" data-action="set-bed">Set</button>
+                                              <button class="apply-btn off-btn" data-action="off-bed">Off</button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="control-panel" data-panel="extruder" hidden>
+                                  <div class="control-block">
+                                      <h3>Extruder</h3>
+                                      <div class="extruder-control">
+                                          <div class="step-options" id="extruder-steps">
+                                              <button data-length="5" class="step-btn">5 mm</button>
+                                              <button data-length="10" class="step-btn active">10 mm</button>
+                                              <button data-length="25" class="step-btn">25 mm</button>
+                                          </div>
+                                          <div class="extruder-actions">
+                                              <button class="extrude-btn" data-action="extrude">Extrude</button>
+                                              <div class="extruder-indicator" id="extruder-indicator">
+                                                  <div class="extruder-indicator-circle" id="extruder-indicator-circle" aria-hidden="true"></div>
+                                                  <span class="extruder-indicator-label" id="extruder-indicator-label">Unknown</span>
+                                              </div>
+                                              <button class="extrude-btn" data-action="retract">Retract</button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                                  <div class="control-panel" data-panel="speed" hidden>
+                                  <div class="control-block">
+                                      <h3>Speed Mode <span class="speed-percent" id="control-speed-percent">-</span></h3>
+                                      <div class="speed-options" id="speed-modes">
+                                          <button data-mode="silent" class="speed-btn">Silent</button>
+                                          <button data-mode="standard" class="speed-btn active">Standard</button>
+                                          <button data-mode="sport" class="speed-btn">Sport</button>
+                                          <button data-mode="ludicrous" class="speed-btn">Ludicrous</button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>

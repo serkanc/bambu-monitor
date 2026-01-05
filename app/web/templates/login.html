@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/stylewind.css">
+</head>
+<body class="login-body">
+    <div class="login-shell">
+        <form class="login-card" id="login-form">
+            <h1>Admin Login</h1>
+            <label for="login-username">Username</label>
+            <input id="login-username" name="username" type="text" autocomplete="username" value="admin" required>
+            <label for="login-password">Password</label>
+            <input id="login-password" name="password" type="password" autocomplete="current-password" required>
+            <div class="login-error" id="login-error" role="alert" aria-live="polite"></div>
+            <button type="submit" class="login-submit" id="login-submit">Sign in</button>
+        </form>
+    </div>
+    <script type="module" src="/static/js/ui/login.js"></script>
+</body>
+</html>

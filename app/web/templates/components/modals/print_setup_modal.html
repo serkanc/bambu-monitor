@@ -1,0 +1,90 @@
+    <div id="print-setup-modal" class="ps-modal hidden" data-modal-id="printSetup">
+        
+        <!-- BACKDROP -->
+        <div class="ps-backdrop"></div>
+
+        <!-- PANEL -->
+        <div class="ps-panel">
+            <div class="ps-header">
+                <h2>Print Setup</h2>
+                <button id="print-setup-close" class="ps-close" aria-label="Close" data-modal-close="printSetup">&times;</button>
+            </div>
+            <div id="ps-warning-banner" class="ps-warning-banner hidden"></div>
+            <div class="ps-body">
+                <div class="ps-stack">
+                    <div class="ps-card ps-model-card">
+                        <div class="ps-model ps-model-top">
+                            <div class="ps-model-image"></div>
+                            <div class="ps-model-info ps-slice-info-block">
+                                <div class="ps-file-title">
+                                    <span class="ps-list-label">File</span>
+                                    <span id="ps-file-name" class="ps-file-name">---</span>
+                                </div>
+                                <div class="ps-grid ps-meta-grid">
+                                    <div><span class="ps-meta-label">Estimated Time</span><span id="ps-time"></span></div>
+                                    <div><span class="ps-meta-label">Filament Used</span><span id="ps-filament"></span></div>
+                                    <div><span class="ps-meta-label">Layer Count</span><span id="ps-layers"></span></div>
+                                    <div><span class="ps-meta-label">Nozzle</span><span id="ps-nozzle"></span></div>
+                                </div>
+                                <div class="ps-file-plate-block">
+                                    <div class="ps-field">
+                                        <span class="ps-list-label">Plate</span>
+                                        <select id="ps-plate-select"></select>
+                                    </div>
+                                    <div class="ps-field ps-field--plate-name">
+                                        <span class="ps-meta-label">Plate Name</span>
+                                        <span id="ps-plate-name" class="ps-plate-name">---</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ps-card ps-filament-card">
+                        <div class="ps-card-heading">
+                            <h3>Filament</h3>
+                        </div>
+                        <div id="ams-mapping-area" class="ps-ams-grid"></div>
+                    </div>
+
+                    <div class="ps-card ps-options-card">
+                        <div class="ps-card-heading">
+                            <h3>Print Options</h3>
+                        </div>
+                        <div class="ps-toggle-grid">
+                            <label class="ps-toggle ps-toggle-row">
+                                <span class="ps-toggle-label">Bed Leveling</span>
+                                <input type="checkbox" id="ps-bed-leveling" checked>
+                                <span class="ps-toggle-slider"></span>
+                            </label>
+                            <label class="ps-toggle ps-toggle-row">
+                                <span class="ps-toggle-label">Flow Calibration</span>
+                                <input type="checkbox" id="ps-flow-cali" checked>
+                                <span class="ps-toggle-slider"></span>
+                            </label>
+                            <label class="ps-toggle ps-toggle-row">
+                                <span class="ps-toggle-label">Timelapse</span>
+                                <input type="checkbox" id="ps-timelapse">
+                                <span class="ps-toggle-slider"></span>
+                            </label>
+                            <label class="ps-toggle ps-toggle-row">
+                                <span class="ps-toggle-label">Layer Inspect</span>
+                                <input type="checkbox" id="ps-layer-inspect" checked>
+                                <span class="ps-toggle-slider"></span>
+                            </label>
+                            <label class="ps-toggle ps-toggle-row">
+                                <span class="ps-toggle-label">Vibration Calibration</span>
+                                <input type="checkbox" id="ps-vibration-cali" checked>
+                                <span class="ps-toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="ps-actions">
+                        <button class="ps-btn cancel" id="ps-cancel-btn" data-modal-close="printSetup">Cancel</button>
+                        <button class="ps-btn primary" id="ps-print-btn">Print</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

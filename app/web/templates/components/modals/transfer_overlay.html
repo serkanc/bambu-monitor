@@ -1,0 +1,28 @@
+    <div id="transfer-overlay" class="transfer-overlay" aria-hidden="true">
+        <div class="transfer-overlay__backdrop"></div>
+        <div class="transfer-overlay__panel" role="dialog" aria-live="assertive">
+            <p class="transfer-overlay__eyebrow">File transfer</p>
+            <h3 class="transfer-overlay__name" id="transfer-file-name">Selected file</h3>
+            <p class="transfer-overlay__status" id="transfer-status-text">Preparing...</p>
+            <div class="transfer-progress">
+                <div class="transfer-progress-bar">
+                    <div class="transfer-progress-fill" id="transfer-progress-fill"></div>
+                </div>
+                <div class="transfer-progress-meta">
+                    <span id="transfer-progress-count">0 / 0</span>
+                    <span id="transfer-progress-percent">0%</span>
+                </div>
+            </div>
+            <div class="transfer-overlay__stats">
+                <div>
+                    <span class="label">Speed</span>
+                    <span id="transfer-speed">-</span>
+                </div>
+                <div>
+                    <span class="label">Remaining Time</span>
+                    <span id="transfer-eta">-</span>
+                </div>
+            </div>
+            <button type="button" class="transfer-cancel-btn" id="transfer-cancel-btn">Cancel</button>
+        </div>
+    </div>

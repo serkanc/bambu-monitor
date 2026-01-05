@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="setup-shell">
+    <div class="setup-card">
+        <h1>Initial Setup</h1>
+        <p class="setup-subtitle">Set the admin password to continue.</p>
+        <form id="setup-admin-form" class="setup-form">
+            <input class="visually-hidden" type="text" name="username" autocomplete="username" value="admin">
+            <label for="setup-admin-password">Admin Password</label>
+            <input
+                id="setup-admin-password"
+                name="setup-admin-password"
+                type="password"
+                autocomplete="new-password"
+                minlength="6"
+                required
+            >
+            <label for="setup-admin-confirm">Confirm Password</label>
+            <input
+                id="setup-admin-confirm"
+                name="setup-admin-confirm"
+                type="password"
+                autocomplete="new-password"
+                minlength="6"
+                required
+            >
+            <div class="setup-error" id="setup-admin-error" role="alert" aria-live="polite"></div>
+            <button type="submit" class="setup-submit" id="setup-admin-submit">Save Password</button>
+        </form>
+        <div class="setup-next" id="setup-next" hidden>
+            <p class="setup-subtitle">Password saved. Add your first printer.</p>
+            <button type="button" class="setup-submit" id="setup-open-printer-modal">Add Printer</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

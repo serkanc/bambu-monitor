@@ -1,0 +1,24 @@
+{
+  "items": [
+    {
+      "alias": "SAVA TPU 75A",
+      "setting_id": "",
+      "tray_info_idx": "P2daf10f",
+      "tray_type": [
+        "TPU"
+      ],
+      "nozzle_temp_min": 200,
+      "nozzle_temp_max": 240
+    },
+    {
+      "alias": "Sigma3d PowerPLA",
+      "setting_id": "P0cf4eaa",
+      "tray_info_idx": "P0cf4eaa",
+      "tray_type": [
+        "PLA"
+      ],
+      "nozzle_temp_min": 190,
+      "nozzle_temp_max": 240
+    }
+  ]
+}

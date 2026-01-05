@@ -1,0 +1,6 @@
+api:
+  listen: "127.0.0.1:5010"
+rtsp:
+  listen: "127.0.0.1:8554"
+streams:
+  external: "rtsp://yuzeykalip:kalipyuzey8554879@192.168.1.50:554/unicast/c18/s0/live"

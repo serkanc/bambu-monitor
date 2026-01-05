@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Printer Debug Console</title>
+<style>
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    margin: 0;
+    padding: 24px;
+    background: #f4f6fb;
+    color: #2c3e50;
+}
+h1 { margin-top: 0; }
+.section {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.1);
+    padding: 20px;
+    margin-bottom: 24px;
+}
+.section h2 {
+    margin-top: 0;
+    border-bottom: 1px solid #e6e9ed;
+    padding-bottom: 8px;
+}
+.pre-container {
+    position: relative;
+    margin-top: 12px;
+}
+
+pre {
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 16px 50px 16px 16px; /* sağa sadece buton alanı kadar boşluk */
+    border-radius: 8px;
+    overflow: auto;
+    max-height: 400px;
+    margin: 0;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 4px 12px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+.copy-btn:hover { background: #1d4ed8; }
+.copy-btn.copied { background: #16a34a; }
+.history { display: grid; gap: 12px; }
+.history-entry {
+    background: white;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    padding: 12px;
+    box-shadow: 0 6px 12px rgba(15, 23, 42, 0.08);
+}
+.timestamp {
+    font-weight: 600;
+    color: #2563eb;
+    margin-bottom: 8px;
+}
+.state-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 8px 16px;
+    margin-top: 8px;
+}
+.state-grid div {
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 8px 12px;
+    border: 1px solid #e2e8f0;
+}
+
+.stage-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+}
+
+.stage-list {
+    list-style: decimal;
+    margin: 8px 0 0;
+    padding-left: 18px;
+}
+
+.stage-list li {
+    margin-bottom: 4px;
+}
+</style>
+</head>
+<body>
+<h1>📡 Printer Debug Console</h1>
+
+<div class="section">
+    <h2>Master JSON Snapshot</h2>
+    <div class="pre-container">
+        <pre id="masterJson">{}</pre>
+        <button class="copy-btn" data-copy-target="masterJson">Copy</button>
+    </div>
+</div>
+
+<div class="section">
+    <h2>State Snapshot</h2>
+    <div class="state-grid">
+        <div><strong>Printer Online:</strong> <span id="stateOnline">-</span></div>
+        <div><strong>Updated At:</strong> <span id="stateUpdated">-</span></div>
+        <div><strong>GCode State:</strong> <span id="stateGcode">-</span></div>
+        <div><strong>Percent:</strong> <span id="statePercent">-</span></div>
+        <div><strong>Layer:</strong> <span id="stateLayer">-</span></div>
+        <div><strong>File:</strong> <span id="stateFile">-</span></div>
+    </div>
+    <div class="pre-container" style="margin-top:16px;">
+        <pre id="stateJson">{}</pre>
+        <button class="copy-btn" data-copy-target="stateJson">Copy</button>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Stage Tracker</h2>
+    <div class="stage-grid">
+        <div>
+            <strong>Stage Array</strong>
+            <ul id="stageList" class="stage-list"></ul>
+        </div>
+        <div>
+            <strong>Current Stage</strong>
+            <span id="stageCurrent">-</span>
+        </div>
+        <div>
+            <strong>Main Stage</strong>
+            <span id="stageMain">-</span>
+        </div>
+        <div>
+            <strong>Sub Stage</strong>
+            <span id="stageSub">-</span>
+        </div>
+        <div>
+            <strong>Print Type</strong>
+            <span id="stagePrintType">-</span>
+        </div>
+        <div>
+            <strong>Line Number</strong>
+            <span id="stageLineNumber">-</span>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2>Recent Messages</h2>
+    <div id="messageHistory" class="history"></div>
+</div>
+
+<script>
+window.__APP_CONFIG__ = {
+    apiToken: {{ api_token | tojson }}
+};
+</script>
+<script>
+async function loadDebugData() {
+    try {
+        const headers = {};
+        const token = window.__APP_CONFIG__?.apiToken;
+        if (token) {
+            headers.Authorization = `Bearer ${token}`;
+        }
+        const res = await fetch('/api/debug/data', {
+            headers,
+            credentials: 'same-origin',
+        });
+        if (!res.ok) throw new Error('Debug endpoint unreachable');
+        const data = await res.json();
+
+        document.getElementById('masterJson').textContent = JSON.stringify(data.master_json, null, 2);
+
+        const state = data.state || {};
+        const printState = state.print || {};
+        document.getElementById('stateOnline').textContent = state.printer_online ? 'Yes' : 'No';
+        document.getElementById('stateUpdated').textContent = state.updated_at || '-';
+        document.getElementById('stateGcode').textContent = printState.gcode_state || '-';
+        document.getElementById('statePercent').textContent =
+            printState.percent !== undefined && printState.percent !== null ? printState.percent : '-';
+        document.getElementById('stateLayer').textContent = printState.layer || '-';
+        document.getElementById('stateFile').textContent = printState.file || '-';
+        document.getElementById('stateJson').textContent = JSON.stringify(state, null, 2);
+        renderStageInfo(printState);
+
+        const historyContainer = document.getElementById('messageHistory');
+        historyContainer.innerHTML = '';
+
+        data.message_history.forEach((entry, i) => {
+            const card = document.createElement('div');
+            card.className = 'history-entry';
+
+            const preContainer = document.createElement('div');
+            preContainer.className = 'pre-container';
+
+            const pre = document.createElement('pre');
+            pre.textContent = JSON.stringify(entry.raw_json, null, 2);
+            pre.id = `history-${i}`;
+
+            const btn = document.createElement('button');
+            btn.className = 'copy-btn';
+            btn.textContent = 'Copy';
+            btn.dataset.copyTarget = pre.id;
+
+            preContainer.appendChild(pre);
+            preContainer.appendChild(btn);
+
+            card.innerHTML = `<div class="timestamp">??? ${entry.timestamp}</div>`;
+            card.appendChild(preContainer);
+
+            historyContainer.appendChild(card);
+        });
+    } catch (err) {
+        console.error('Debug data error:', err);
+        document.getElementById('masterJson').textContent = 'Debug data unavailable.';
+    }
+}
+
+function renderStageInfo(printState) {
+    const stageHistory =
+        Array.isArray(printState?.stage_labels) ? [...printState.stage_labels] : [];
+    const currentLabelRaw = printState?.stage_current_label;
+    const currentLabel = currentLabelRaw || '-';
+    const hasCurrentLabel = currentLabelRaw && currentLabel !== '-';
+    if (hasCurrentLabel && stageHistory[stageHistory.length - 1] !== currentLabel) {
+        stageHistory.push(currentLabel);
+    }
+    const highlightIndex = hasCurrentLabel ? stageHistory.lastIndexOf(currentLabel) : -1;
+    const stageList = document.getElementById('stageList');
+    stageList.innerHTML = '';
+    if (!stageHistory.length) {
+        stageList.innerHTML = '<li>No data</li>';
+    } else {
+        stageHistory.forEach((label, index) => {
+            const entry = document.createElement('li');
+            const textValue = label || '-';
+            if (index === highlightIndex && highlightIndex !== -1) {
+                const strong = document.createElement('strong');
+                strong.textContent = textValue;
+                entry.appendChild(strong);
+            } else {
+                entry.textContent = textValue;
+            }
+            stageList.appendChild(entry);
+        });
+    }
+    document.getElementById('stageCurrent').textContent = currentLabel;
+    document.getElementById('stageMain').textContent =
+        printState?.mc_print_stage !== undefined && printState?.mc_print_stage !== null
+            ? String(printState.mc_print_stage)
+            : '-';
+    document.getElementById('stageSub').textContent =
+        printState?.mc_print_sub_stage !== undefined && printState?.mc_print_sub_stage !== null
+            ? String(printState.mc_print_sub_stage)
+            : '-';
+    document.getElementById('stagePrintType').textContent = printState?.print_type || '-';
+    document.getElementById('stageLineNumber').textContent = printState?.mc_print_line_number || '-';
+}
+
+function copyText(elementId, btn) {
+    const text = document.getElementById(elementId).textContent;
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text)
+            .then(() => showCopied(btn))
+            .catch(() => fallbackCopy(text, btn));
+    } else {
+        fallbackCopy(text, btn);
+    }
+}
+
+function fallbackCopy(text, btn) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.top = '-9999px';
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+    try { document.execCommand('copy'); } catch (err) { console.error(err); }
+    document.body.removeChild(textarea);
+    showCopied(btn);
+}
+
+function showCopied(btn) {
+    btn.textContent = '✓ Copied';
+    btn.classList.add('copied');
+    setTimeout(() => {
+        btn.textContent = 'Copy';
+        btn.classList.remove('copied');
+    }, 1500);
+}
+
+function bindCopyHandlers() {
+    document.addEventListener('click', (event) => {
+        const btn = event.target?.closest?.('.copy-btn');
+        if (!btn) {
+            return;
+        }
+        const targetId = btn.dataset.copyTarget;
+        if (!targetId) {
+            return;
+        }
+        copyText(targetId, btn);
+    });
+}
+
+bindCopyHandlers();
+loadDebugData();
+setInterval(loadDebugData, 5000);
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+    <div id="file-action-modal" class="file-action-modal" aria-hidden="true" data-modal-id="fileAction">
+        <div class="file-action-backdrop" data-modal-close="fileAction"></div>
+        <div class="file-action-dialog" role="dialog" aria-modal="true" aria-labelledby="file-action-name" tabindex="-1">
+            <div class="file-action-header">
+                <div class="file-action-icon">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M4 5h9l5 5v9a2 2 0 01-2 2H4a2 2 0 01-2-2V7a2 2 0 012-2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <div class="file-action-titles">
+                    <span class="file-action-label">File</span>
+                    <h3 class="file-action-title" id="file-action-name">File name</h3>
+                    <p class="file-action-meta" id="file-action-meta"></p>
+                </div>
+                <button type="button" class="file-action-close" id="file-action-close" aria-label="Close" data-modal-close="fileAction">&times;</button>
+            </div>
+            <div class="file-action-body">
+                <p>What would you like to do with this file?</p>
+            </div>
+            <div class="file-action-footer">
+                <button type="button" class="file-action-btn secondary" id="file-print-btn">Print</button>
+                <button type="button" class="file-action-btn primary" id="file-download-btn">Download</button>
+                <button type="button" class="file-action-btn danger" id="file-delete-btn">Delete</button>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,30 @@
+                    <div class="card file-explorer-card">
+                        <h2>File Explorer</h2>
+                    <div class="file-explorer-container">
+                        <div class="file-explorer-header">
+                            <div class="file-toolbar">
+                                <div class="file-actions">
+                                    <button class="action-btn" data-file-explorer-action="navigate" data-file-explorer-path="/" title="Go to root directory">
+                                        <span class="action-icon">&#8962;</span>
+                                        <span>Home</span>
+                                    </button>
+                                    <button class="action-btn" data-file-explorer-action="create-folder" title="Yeni klasor olustur">
+                                        <span class="action-icon">+</span>
+                                        <span>New Folder</span>
+                                    </button>
+                                    <button class="action-btn" data-file-explorer-action="upload" title="Upload file">
+                                        <span class="action-icon">&#8682;</span>
+                                        <span>Upload File</span>
+                                    </button>
+                                </div>
+                                <button class="refresh-btn" data-file-explorer-action="refresh" title="Refresh file list">
+                                    &#8635;
+                                </button>
+                            </div>
+                            <div class="breadcrumb" id="file-breadcrumb">
+                                <span class="breadcrumb-item" data-file-explorer-action="navigate" data-file-explorer-path="/">Home</span>
+                            </div>
+                        </div>
+                        <div class="file-list" id="file-list"></div>
+                    </div>
+                </div>

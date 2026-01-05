@@ -1,0 +1,69 @@
+<div class="ams-material-modal is-hidden" id="ams-material-modal" aria-hidden="true" data-modal-id="amsMaterial">
+    <div class="ams-material-modal-backdrop" id="ams-material-modal-backdrop" data-modal-close="amsMaterial"></div>
+    <div class="ams-material-modal-panel" role="dialog" aria-modal="true" aria-labelledby="ams-material-modal-title">
+        <div class="ams-material-modal-header">
+            <h3 id="ams-material-modal-title">AMS Materials Setting</h3>
+            <button class="ams-material-modal-close" id="ams-material-modal-close" type="button" aria-label="Close" data-modal-close="amsMaterial">
+                &times;
+            </button>
+        </div>
+        <div class="ams-material-modal-body">
+            <div class="ams-material-field">
+                <label for="ams-material-filament">Filament</label>
+                <select id="ams-material-filament" class="ams-material-select"></select>
+            </div>
+            <div class="ams-material-field ams-material-color-field">
+                <label for="ams-material-color-btn">Color</label>
+                <button type="button" class="ams-material-color-btn" id="ams-material-color-btn" aria-label="Select color">
+                    <span class="ams-material-color-swatch" id="ams-material-color-swatch"></span>
+                </button>
+                <div class="ams-material-color-popover is-hidden" id="ams-material-color-popover" aria-hidden="true">
+                    <div class="ams-material-color-section">
+                        <p class="ams-material-color-title">AMS</p>
+                        <div class="ams-material-color-grid" id="ams-material-color-ams"></div>
+                    </div>
+                    <div class="ams-material-color-section">
+                        <p class="ams-material-color-title">Other Color</p>
+                        <div class="ams-material-color-grid" id="ams-material-color-list"></div>
+                    </div>
+                    <div class="ams-material-color-section">
+                        <p class="ams-material-color-title">Custom Color</p>
+                        <div class="ams-material-color-custom">
+                            <input type="color" id="ams-material-color-custom" value="#ffffff" aria-label="Custom color picker">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ams-material-field">
+                <label for="ams-material-nozzle-max">Nozzle Temperature</label>
+                <div class="ams-material-temp-row">
+                    <div class="ams-material-temp">
+                        <span class="ams-material-temp-label">max</span>
+                        <input type="text" id="ams-material-nozzle-max" readonly value="-" />
+                        <span class="ams-material-temp-unit">&deg;C</span>
+                    </div>
+                    <div class="ams-material-temp">
+                        <span class="ams-material-temp-label">min</span>
+                        <input type="text" id="ams-material-nozzle-min" readonly value="-" />
+                        <span class="ams-material-temp-unit">&deg;C</span>
+                    </div>
+                </div>
+            </div>
+            <div class="ams-material-field">
+                <label for="ams-material-pa-profile">PA Profile</label>
+                <select id="ams-material-pa-profile" class="ams-material-select" disabled aria-disabled="true">
+                    <option selected>Default</option>
+                </select>
+            </div>
+            <div class="ams-material-field">
+                <label for="ams-material-factor-k">Factor K</label>
+                <input id="ams-material-factor-k" class="ams-material-input" type="text" value="0.020" readonly />
+            </div>
+        </div>
+        <div class="ams-material-modal-actions">
+            <button type="button" class="ams-material-btn ams-material-btn--primary" id="ams-material-confirm">Confirm</button>
+            <button type="button" class="ams-material-btn ams-material-btn--secondary" id="ams-material-reset">Reset</button>
+            <button type="button" class="ams-material-btn ams-material-btn--ghost" id="ams-material-close" data-modal-close="amsMaterial">Close</button>
+        </div>
+    </div>
+</div>

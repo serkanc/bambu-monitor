@@ -1,0 +1,8 @@
+{
+  "name": "bambumon-web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:frontend": "node tests/run.mjs"
+  }
+}

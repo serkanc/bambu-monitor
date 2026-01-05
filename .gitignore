@@ -1,0 +1,25 @@
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.env/
+.venv/
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+/data/filament/cache/
+/web/
+/bin/
+/data/print-cache/
+pyvenv.cfg
+app.json
+/tests/
+/app/web/tests/

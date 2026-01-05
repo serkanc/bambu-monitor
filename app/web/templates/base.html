@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bambu Printer Monitor</title>
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/stylewind.css">
+</head>
+<body
+    data-first-run="{{ 'true' if first_run else 'false' }}"
+    data-modal-mode="{{ 'setup' if first_run else 'add' }}"
+    data-setup-step="{{ setup_step | default('') }}"
+    data-password-required="{{ 'true' if password_required else 'false' }}"
+>
+    {% block content %}{% endblock %}
+    {% include "components/modals/printer_modal.html" %}
+    {% include "components/modals/file_action_modal.html" %}
+    <!-- =============================
+        PRINT SETUP MODAL (FINAL)
+    ============================= -->
+    {% include "components/modals/print_setup_modal.html" %}
+    {% include "components/modals/settings_modal.html" %}
+    {% include "components/modals/nozzle_modal.html" %}
+    {% include "components/modals/ams_material_modal.html" %}
+    {% include "components/modals/custom_filament_modal.html" %}
+    {% include "components/modals/transfer_overlay.html" %}
+    {% include "components/modals/skip_objects_modal.html" %}
+    {% include "components/modals/print_error_modal.html" %}
+    <script>
+      window.__APP_CONFIG__ = {
+        apiToken: {% if api_token is defined %}{{ api_token | tojson }}{% else %}null{% endif %}
+      };
+    </script>
+    <script>
+      window.__INITIAL_DATA__ = {% if initial_data is defined %}{{ initial_data | tojson }}{% else %}{}{% endif %};
+    </script>
+    <script type="module" src="{{ url_for('static', path='js/main.js') }}"></script>
+</body>
+</html>

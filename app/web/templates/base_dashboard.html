@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="dashboard-layout sidebar-collapsed">
+        <div class="printer-sidebar-backdrop" id="printer-sidebar-backdrop" aria-hidden="true"></div>
+        <aside class="printer-sidebar" id="printer-sidebar" aria-label="Printer selection">
+            <div class="sidebar-header">
+                <div>
+                    <p class="sidebar-eyebrow">PRINTER MANAGEMENT</p>
+                    <h2>Connected Printers</h2>
+                    <p class="printer-count-badge" id="printer-count-badge">0 printers</p>
+                </div>
+                <button class="sidebar-close-btn" id="printer-sidebar-close" type="button" aria-label="Close menu">
+                    &times;
+                </button>
+            </div>
+            <div class="sidebar-body">
+                <div class="printer-list" id="printer-list">
+                    <div class="printer-list-empty">Printers loading...</div>
+                </div>
+            </div>
+            <div class="sidebar-footer">
+                <button class="add-printer-btn" id="add-printer-btn" type="button">+ Add Printer</button>
+                <div class="sidebar-menu">
+                    <button class="sidebar-menu-item" id="sidebar-settings-btn" type="button" data-modal-open="settings">Settings</button>
+                    <button class="sidebar-menu-item" id="sidebar-logs-btn" type="button">Debug</button>
+                    <button class="sidebar-menu-item" id="sidebar-logout-btn" type="button">Logout</button>
+                </div>
+            </div>
+        </aside>
+        <div class="event-panel-backdrop" id="event-sidebar-backdrop" aria-hidden="true"></div>
+        <aside class="event-sidebar" id="event-sidebar" aria-label="Printer events">
+            <div class="event-sidebar-header">
+                <div>
+                    <p class="sidebar-eyebrow">EVENT LOG</p>
+                    <h2>Printer Events</h2>
+                </div>
+                <div class="event-sidebar-actions">
+                    <button type="button" id="event-panel-mark-read" class="event-action-btn">Mark read</button>
+                    <button type="button" id="event-panel-clear" class="event-action-btn">Clear</button>
+                    <button type="button" id="event-panel-close" class="event-close-btn" aria-label="Close events panel">&times;</button>
+                </div>
+            </div>
+            <div class="event-sidebar-body">
+                <div class="event-list" id="printer-events-list">
+                    <div class="event-list-empty">No events yet.</div>
+                </div>
+            </div>
+        </aside>
+        <div class="dashboard-main">
+            <div class="dashboard-toolbar">
+                <button class="sidebar-hamburger" id="printer-menu-toggle" type="button" aria-label="Open menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="server-offline-banner" id="server-offline-banner" aria-live="polite" hidden>
+                    <span class="server-offline-banner__dot" aria-hidden="true"></span>
+                    <span>Server offline &mdash; reconnecting...</span>
+                </div>
+                <button class="event-panel-toggle" id="event-panel-toggle" type="button" aria-label="Open events panel">
+                    &#128276;
+                    <span class="event-panel-badge" id="event-panel-badge" aria-hidden="true"></span>
+                </button>
+            </div>
+            <div class="container">
+                {% block dashboard_content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+
+    <div class="printer-context-menu" id="printer-context-menu" aria-hidden="true">
+        <button type="button" class="printer-context-menu__item" data-action="activate">
+            <svg class="printer-context-menu__icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 12l4 4 10-10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <div class="printer-context-menu__text">
+                <span class="printer-context-menu__title">Activate</span>
+                <span class="printer-context-menu__desc">Activate this printer</span>
+            </div>
+        </button>
+        <button type="button" class="printer-context-menu__item" data-action="make-default">
+            <svg class="printer-context-menu__icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                    d="M12 4.5l1.94 4.28 4.75.69-3.44 3.36.81 4.73-4.06-2.13-4.06 2.13.81-4.73L5.31 9.47l4.75-.69L12 4.5z"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+            </svg>
+            <div class="printer-context-menu__text">
+                <span class="printer-context-menu__title">Make default</span>
+                <span class="printer-context-menu__desc">Use this printer on startup</span>
+            </div>
+        </button>
+        <button type="button" class="printer-context-menu__item" data-action="edit">
+            <svg class="printer-context-menu__icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5.5 18.5l2.5.5.5-2.5L16 6.5 17.5 8 8 17.5l-2.5.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                <path d="M14.5 5.5l4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+            <div class="printer-context-menu__text">
+                <span class="printer-context-menu__title">Edit</span>
+                <span class="printer-context-menu__desc">Update printer details</span>
+            </div>
+        </button>
+        <button type="button" class="printer-context-menu__item is-danger" data-action="delete">
+            <svg class="printer-context-menu__icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 7h12M10 7v10m4-10v10M9 7V5h6v2m-7 0l1 12h8l1-12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <div class="printer-context-menu__text">
+                <span class="printer-context-menu__title">Remove</span>
+                <span class="printer-context-menu__desc">Remove printer from list</span>
+            </div>
+        </button>
+    </div>
+{% endblock %}

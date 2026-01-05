@@ -1,0 +1,273 @@
+                    <div class="card printer-card">
+                        <div class="printer-card-header">
+                            <div>
+                                <h2 id="printer-identity-name">-</h2>
+                                <p class="printer-identity-meta">
+                                    <span id="printer-identity-ip">IP: -</span>
+                                    <span class="meta-divider">•</span>
+                                    <span id="printer-identity-serial">Serial: -</span>
+                                </p>
+                                <p class="printer-identity-model" id="printer-identity-model">Model: -</p>
+                                <p class="printer-identity-firmware">
+                                    Firmware: <span id="printer-firmware-value">-</span>
+                                </p>
+                            </div>
+                            <span id="status-indicator" class="status-offline">OFFLINE</span>
+                        </div>
+                        <div class="printer-tabs" role="tablist">
+                            <button type="button" class="printer-tab is-active" data-tab="status">Status</button>
+                            <button type="button" class="printer-tab" data-tab="print">Print Status</button>
+                            <button type="button" class="printer-tab" data-tab="hardware">Hardware</button>
+                            <button type="button" class="printer-tab" data-tab="features">Features</button>
+                            <button type="button" class="printer-tab" data-tab="server-info">Server Info</button>
+                        </div>
+                        <div class="printer-tab-panel" data-panel="status">
+                            <div class="status-grid">
+                                <div class="status-item" data-feature="print.gcode_state">
+                                    <span class="status-item-icon">⚙</span>
+                                    <div class="status-item-content">
+                                        <span>Gcode Status</span>
+                                        <strong id="print-status-state">-</strong>
+                                    </div>
+                                </div>
+                                <div class="status-item" data-feature="print.nozzle_temp">
+                                    <span class="status-item-icon">🔥</span>
+                                    <div class="status-item-content">
+                                        <span>Nozzle</span>
+                                        <strong id="status-nozzle-info">0&deg;C / 0&deg;C</strong>
+                                    </div>
+                                </div>
+                                <div class="status-item" data-feature="print.bed_temp">
+                                    <span class="status-item-icon">🛏️</span>
+                                    <div class="status-item-content">
+                                        <span>Bed</span>
+                                        <strong id="status-bed-info">0&deg;C / 0&deg;C</strong>
+                                    </div>
+                                </div>
+                                <div class="status-item" data-feature="print.chamber_temp">
+                                    <span class="status-item-icon">🌡️</span>
+                                    <div class="status-item-content">
+                                        <span>Chamber</span>
+                                        <strong id="status-chamber-temp">0&deg;C</strong>
+                                    </div>
+                                </div>
+                                <div class="status-item" data-feature="print.fan_gear">
+                                    <span class="status-item-icon">⚙️</span>
+                                    <div class="status-item-content">
+                                        <span>Fan Gear</span>
+                                        <strong id="status-fan-gear">0</strong>
+                                    </div>
+                                </div>
+                                <div class="status-item" data-feature="print.heatbreak_fan_speed">
+                                    <span class="status-item-icon">🌬️</span>
+                                    <div class="status-item-content">
+                                        <span>Heatbreak Fan</span>
+                                        <strong id="status-heatbreak-fan">0</strong>
+                                    </div>
+                                </div>
+                                <div class="status-item" data-feature="print.cooling_fan_speed">
+                                    <span class="status-item-icon">🌀</span>
+                                    <div class="status-item-content">
+                                        <span>Cooling Fan</span>
+                                        <strong id="status-cooling-fan">0</strong>
+                                    </div>
+                                </div>
+                                <div class="status-item" data-feature="print.chamber_light">
+                                    <span class="status-item-icon">💡</span>
+                                    <div class="status-item-content">
+                                        <span>Chamber Light</span>
+                                        <strong id="status-chamber-light">-</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="printer-tab-panel" data-panel="print" hidden>
+                            <div class="print-status-header">
+                                <div class="print-status-stage">
+                                    <p class="eyebrow">Print Status</p>
+                                    <div class="print-stage-wrapper" aria-label="Gcode stage">
+                                        <strong id="print-stage-current">-</strong>
+                                        <div class="print-stage-tooltip" id="print-stage-tooltip">
+                                        <div class="print-stage-tooltip-title">Print Stages</div>
+                                            <div class="print-stage-tooltip-list" id="print-stage-list"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="eyebrow">File</p>
+                                    <strong id="print-status-file">-</strong>
+                                </div>
+                                <div class="print-status-actions">
+                                    <button id="print-again-btn" class="print-again-btn" type="button" title="Print Again" aria-label="Print Again" hidden>
+                                        <span class="print-again-icon" aria-hidden="true">&#8635;</span>
+                                        <span class="visually-hidden">Print Again</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="print-progress">
+                                <div class="print-progress-meta">
+                                    <span>Progress</span>
+                                    <span id="print-status-percent">0%</span>
+                                </div>
+                                <div class="print-progress-bar">
+                                    <div class="print-progress-fill" id="print-progress-fill"></div>
+                                </div>
+                            </div>
+                            <div class="status-grid">
+                                <div class="status-item" data-feature="print.layer">
+                                    <span class="status-item-icon">📚</span>
+                                    <div class="status-item-content">
+                                        <span>Layer</span>
+                                        <strong id="print-status-layer">0/0</strong>
+                                    </div>
+                                </div>
+                                <div class="status-item" data-feature="print.remaining_time">
+                                    <span class="status-item-icon">⏳</span>
+                                    <div class="status-item-content">
+                                        <span>Remaining</span>
+                                        <strong id="print-status-remaining">0 min</strong>
+                                    </div>
+                                </div>
+                                <div class="status-item" data-feature="print.finish_time">
+                                    <span class="status-item-icon">🕒</span>
+                                    <div class="status-item-content">
+                                        <span>Finish Time</span>
+                                        <strong id="print-status-finish">-</strong>
+                                    </div>
+                                </div>
+                                <div class="status-item" data-feature="print.speed_level">
+                                    <span class="status-item-icon">🚀</span>
+                                    <div class="status-item-content">
+                                        <span>Speed Mode</span>
+                                        <strong id="print-status-speed-mode">-</strong>
+                                    </div>
+                                </div>
+                                <div class="status-item status-item-timelapse" data-feature="print.timelapse">
+                                    <span class="status-item-icon">📷</span>
+                                    <div class="status-item-content">
+                                        <span>Timelapse Recording</span>
+                                        <button
+                                            id="status-timelapse-toggle"
+                                            class="status-toggle"
+                                            type="button"
+                                            aria-pressed="false"
+                                            aria-label="Timelapse status"
+                                            disabled
+                                        >
+                                            <span class="status-toggle-switch" aria-hidden="true"></span>
+                                            <span class="status-toggle-label">Off</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="status-item status-item-print-type" data-feature="print.print_type">
+                                    <span class="status-item-icon">🖨</span>
+                                    <div class="status-item-content">
+                                        <span>Print Type</span>
+                                        <strong id="print-status-type">-</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="printer-tab-panel" data-panel="hardware" hidden>
+                            <div class="status-grid">
+                                <div class="status-item" data-feature="print.sdcard">
+                                    <span class="status-item-icon">💽</span>
+                                    <div class="status-item-content">
+                                        <span>SD Card</span>
+                                        <strong id="hardware-sdcard">-</strong>
+                                    </div>
+                                </div>
+                                <div class="status-item" data-feature="print.nozzle_type">
+                                    <span class="status-item-icon">🧵</span>
+                                    <div class="status-item-content">
+                                        <span>Nozzle Type</span>
+                                        <strong id="hardware-nozzle-type">-</strong>
+                                    </div>
+                                </div>
+                                <div class="status-item" data-feature="print.nozzle_diameter">
+                                    <span class="status-item-icon">📏</span>
+                                    <div class="status-item-content">
+                                        <span>Nozzle Diameter</span>
+                                        <strong id="hardware-nozzle-diameter">-</strong>
+                                    </div>
+                                </div>
+                                <div class="status-item" data-feature="print.wifi_signal">
+                                    <span class="status-item-icon">📶</span>
+                                    <div class="status-item-content">
+                                        <span>Wi-Fi Signal</span>
+                                        <strong id="hardware-wifi-signal">-</strong>
+                                    </div>
+                                </div>
+                                <div class="status-item" data-feature="ams.ams_hub_connected">
+                                    <span class="status-item-icon">&#9881;</span>
+                                    <div class="status-item-content">
+                                        <span>AMS Hub</span>
+                                        <strong id="hardware-ams-status">-</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="printer-tab-panel" data-panel="features" hidden>
+                            <div class="feature-toggle-section">
+                                <div class="feature-section-title">AMS Settings</div>
+                                <div class="feature-toggle-grid" id="feature-toggle-grid-ams">
+                                    <div class="feature-empty">No supported AMS toggles.</div>
+                                </div>
+                            </div>
+                            <div class="feature-toggle-section">
+                                <div class="feature-section-title">Printer Settings</div>
+                                <div class="feature-toggle-grid" id="feature-toggle-grid-printer">
+                                    <div class="feature-empty">No supported printer toggles.</div>
+                                </div>
+                            </div>
+                            <div class="feature-sdcard-section">
+                                <div class="feature-section-title">SD Card</div>
+                                <div class="status-grid" id="feature-sdcard-grid">
+                                    <div class="feature-empty">No SD card data.</div>
+                                </div>
+                            </div>
+                            <div class="feature-status-section">
+                                <div class="feature-section-title">Feature Status</div>
+                                <div class="status-grid" id="feature-status-grid">
+                                    <div class="feature-empty">No feature data.</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="printer-tab-panel" data-panel="server-info" hidden>
+                            <div class="status-grid server-status-grid">
+                                <div class="status-item server-uptime" data-feature="server.uptime">
+                                    <span class="status-item-icon">&#8987;</span>
+                                    <div class="status-item-content">
+                                        <span>Server Uptime</span>
+                                        <strong id="server-status-uptime" title="">-</strong>
+                                    </div>
+                                </div>
+                                <div class="status-item server-ftp-status" data-feature="server.ftp_status">
+                                    <span class="status-item-icon">&#9881;</span>
+                                    <div class="status-item-content">
+                                        <span>FTP Status</span>
+                                        <strong id="server-status-ftp">Disconnected</strong>
+                                    </div>
+                                </div>
+                                <div class="status-item server-internal-camera" data-feature="server.camera_status">
+                                    <span class="status-item-icon">&#128247;</span>
+                                    <div class="status-item-content">
+                                        <span>Internal Camera</span>
+                                        <strong id="server-status-camera">Stopped</strong>
+                                    </div>
+                                </div>
+                                <div class="status-item server-external-camera" data-feature="server.go2rtc_running">
+                                    <span class="status-item-icon">&#128250;</span>
+                                    <div class="status-item-content">
+                                        <span>External Camera (go2rtc)</span>
+                                        <strong id="server-status-go2rtc">Unknown</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="printer-alerts">
+                            <div id="print-error"></div>
+                            <div id="hms-errors"></div>
+                        </div>
+                        <p class="muted">Last update: <span id="updated-at">-</span></p>
+                    </div>

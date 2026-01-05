@@ -1,0 +1,36 @@
+<div class="nozzle-modal is-hidden" id="nozzle-modal" aria-hidden="true" data-modal-id="nozzle">
+    <div class="nozzle-modal-backdrop" id="nozzle-modal-backdrop" data-modal-close="nozzle"></div>
+    <div class="nozzle-modal-panel" role="dialog" aria-modal="true" aria-labelledby="nozzle-modal-title">
+        <div class="nozzle-modal-header">
+            <div>
+                <p class="modal-eyebrow">PRINTER PARTS</p>
+                <h3 id="nozzle-modal-title">Nozzle Settings</h3>
+            </div>
+            <button class="nozzle-modal-close" id="nozzle-modal-close" type="button" aria-label="Close" data-modal-close="nozzle">
+                ×
+            </button>
+        </div>
+        <div class="nozzle-modal-body">
+            <div class="nozzle-field">
+                <span class="nozzle-field-label">Type</span>
+                <div class="nozzle-options" id="nozzle-type-options"></div>
+            </div>
+            <div class="nozzle-field">
+                <span class="nozzle-field-label">Diameter</span>
+                <div class="nozzle-options" id="nozzle-diameter-options"></div>
+            </div>
+            <div class="nozzle-field">
+                <span class="nozzle-field-label">Flow</span>
+                <div class="nozzle-flow">
+                    <select id="nozzle-flow-value" class="nozzle-flow-select" disabled aria-disabled="true">
+                        <option selected>Standard</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="nozzle-modal-actions">
+            <button type="button" class="modal-secondary-btn" id="nozzle-modal-cancel" data-modal-close="nozzle">Cancel</button>
+            <button type="button" class="modal-primary-btn" id="nozzle-modal-confirm">OK</button>
+        </div>
+    </div>
+</div>

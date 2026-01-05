@@ -1,0 +1,148 @@
+    <div class="printer-modal" id="printer-modal" aria-hidden="true" data-modal-id="printer">
+        <div class="printer-modal-backdrop" id="printer-modal-backdrop"></div>
+        <div class="printer-modal-panel" role="dialog" aria-modal="true" aria-labelledby="printer-modal-title">
+            <div class="printer-modal-header">
+                <div>
+                    <p class="modal-eyebrow" id="printer-modal-eyebrow">NEW DEVICE</p>
+                    <h3 id="printer-modal-title">Add Printer</h3>
+                </div>
+                <div class="modal-chip" id="printer-modal-status-chip">Fill in the details</div>
+            </div>
+            <p class="modal-description" id="printer-modal-description">
+                Enter the printer IP, serial number, and access code; verification automatically retrieves model and firmware information.
+            </p>
+            <button
+                class="printer-modal-close"
+                id="printer-modal-close"
+                type="button"
+                aria-label="Close"
+            >
+                &times;
+            </button>
+            <form id="printer-form" class="printer-form">
+                <div class="modal-grid">
+                    <div class="modal-field" id="modal-field-name">
+                        <label for="printer-id">Printer Name</label>
+                        <div class="modal-input">
+                            <svg viewBox="0 0 24 24" class="modal-input-icon" aria-hidden="true">
+                                <path d="M12 12a4 4 0 100-8 4 4 0 000 8zm-7 9a7 7 0 0114 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <input id="printer-id" name="printer_id" type="text" placeholder="e.g., A1 Office" required maxlength="40" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="modal-field">
+                        <label for="printer-ip">IP Address</label>
+                        <div class="modal-input">
+                            <svg viewBox="0 0 24 24" class="modal-input-icon" aria-hidden="true">
+                                <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2" />
+                                <path d="M4 12h16M12 4c-2.5 3-2.5 13 0 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                            <input id="printer-ip" name="printer_ip" type="text" placeholder="192.168.1.2" required autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="modal-field">
+                        <label for="printer-serial">Serial Number</label>
+                        <div class="modal-input">
+                            <svg viewBox="0 0 24 24" class="modal-input-icon" aria-hidden="true">
+                                <path d="M5 9h14M5 15h14M9 5v14M15 5v14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                            <input id="printer-serial" name="serial" type="text" placeholder="03919A3B0200123" required autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="modal-field" id="modal-field-access">
+                        <label for="printer-access">Access Code</label>
+                        <div class="modal-input">
+                            <svg viewBox="0 0 24 24" class="modal-input-icon" aria-hidden="true">
+                                <rect x="5" y="11" width="14" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="2" />
+                                <path d="M9 11V7a3 3 0 016 0v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                            </svg>
+                            <input id="printer-access" name="access_code" type="password" placeholder="Enter 8-digit access code" required minlength="8" maxlength="8" autocomplete="current-password">
+                        </div>
+                    </div>
+                </div>
+                <p class="modal-hint">The printer must be powered on and on the same network to verify the information.</p>
+                <div class="modal-error" id="printer-modal-error" role="alert" aria-live="assertive"></div>
+                <div class="modal-actions">
+                    <button type="submit" class="modal-primary-btn" id="printer-form-submit">
+                        <span class="btn-label">Verify</span>
+                        <span class="btn-spinner" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </form>
+            <form class="modal-grid printer-form-extras" id="printer-external-form" autocomplete="off">
+                <div class="modal-field modal-field-checkbox" id="modal-field-external-camera">
+                    <label for="external-camera-enabled">
+                        <input id="external-camera-enabled" name="external_camera_enabled" type="checkbox">
+                        External Camera
+                    </label>
+                </div>
+                <div class="modal-field modal-field-full is-hidden" id="modal-field-external-camera-url">
+                    <p class="modal-hint">Optional RTSP/RTPS camera URL for this printer.</p>
+                    <label for="external-camera-url">Camera URL</label>
+                    <div class="modal-input">
+                        <svg viewBox="0 0 24 24" class="modal-input-icon" aria-hidden="true">
+                            <path d="M6 7h12v10H6z" fill="none" stroke="currentColor" stroke-width="2" />
+                            <path d="M10 7l2-3 2 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                        <input id="external-camera-url" name="external_camera_url" type="text" placeholder="rtsp://camera.local/stream" autocomplete="off">
+                    </div>
+                </div>
+                <div class="modal-field is-hidden" id="modal-field-external-camera-username">
+                    <label for="external-camera-username">Camera Username</label>
+                    <div class="modal-input">
+                        <svg viewBox="0 0 24 24" class="modal-input-icon" aria-hidden="true">
+                            <path d="M12 12a4 4 0 100-8 4 4 0 000 8zm-7 9a7 7 0 0114 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <input id="external-camera-username" name="external_camera_username" type="text" placeholder="username" autocomplete="username">
+                    </div>
+                </div>
+                <div class="modal-field is-hidden" id="modal-field-external-camera-password">
+                    <label for="external-camera-password">Camera Password</label>
+                    <div class="modal-input">
+                        <svg viewBox="0 0 24 24" class="modal-input-icon" aria-hidden="true">
+                            <rect x="5" y="11" width="14" height="9" rx="2" fill="none" stroke="currentColor" stroke-width="2" />
+                            <path d="M9 11V7a3 3 0 016 0v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                        <input id="external-camera-password" name="external_camera_password" type="password" placeholder="password" autocomplete="current-password">
+                    </div>
+                </div>
+            </form>
+            <div class="modal-field modal-field-checkbox is-hidden" id="modal-field-default">
+                <label for="printer-make-default">
+                    <input id="printer-make-default" name="make_default" type="checkbox">
+                    Set as default printer
+                </label>
+                <p class="modal-hint">Mark this printer as the default target for future startups.</p>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="modal-secondary-btn" id="printer-modal-help">Help</button>
+            </div>
+            <div class="printer-modal-preview is-hidden" id="printer-modal-preview">
+                <div class="preview-hero">
+                    <div class="preview-hero-info">
+                        <p class="preview-label">Model</p>
+                        <h4 id="preview-model">-</h4>
+                        <p class="preview-meta" id="preview-firmware">Firmware: -</p>
+                    </div>
+                    <div class="preview-hero-icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <rect x="3" y="8" width="18" height="10" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2" />
+                            <path d="M7 8V6h10v2" fill="none" stroke="currentColor" stroke-width="2" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="preview-modules">
+                    <h5>Modules</h5>
+                    <div id="preview-modules-list" class="preview-module-list">
+                        <p class="preview-placeholder">Module information will appear here after verification.</p>
+                    </div>
+                </div>
+            </div>
+            <form class="printer-modal-add-area printer-modal-add-area--hidden" id="printer-modal-add-area">
+                <button type="button" class="modal-primary-btn modal-primary-btn--add" id="printer-modal-add">
+                    <span class="btn-label">Add Printer</span>
+                    <span class="btn-spinner" aria-hidden="true"></span>
+                </button>
+            </form>
+        </div>
+    </div>

@@ -1,0 +1,28 @@
+{% extends "base_dashboard.html" %}
+
+{% block dashboard_content %}
+    <div class="camera">
+        <div class="camera-feed">
+            <div class="camera-switch" id="camera-switch">
+                <button type="button" class="camera-switch-btn is-active" data-source="internal">Internal</button>
+                <button type="button" class="camera-switch-btn" data-source="external">External</button>
+            </div>
+            <img id="camera-frame" src="" alt="Live Camera Feed" style="display: none;">
+            <video id="camera-video" class="camera-video" autoplay playsinline muted style="display: none;"></video>
+            <div id="camera-placeholder" class="camera-placeholder">
+                Loading camera feed...
+            </div>
+            <button type="button" id="camera-light-toggle" class="camera-light-toggle" aria-pressed="false" aria-label="Toggle chamber light">
+                <span class="camera-light-label camera-light-label--off">Off</span>
+                <span class="camera-light-label camera-light-label--on">On</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="cards">
+        {% include "components/cards/printer_card.html" %}
+        {% include "components/cards/ams_card.html" %}
+        {% include "components/cards/file_explorer_card.html" %}
+        {% include "components/cards/control_card.html" %}
+    </div>
+{% endblock %}

@@ -1,0 +1,96 @@
+<div class="settings-modal" id="settings-modal" aria-hidden="true" data-modal-id="settings">
+    <div class="settings-modal-backdrop" id="settings-modal-backdrop" data-modal-close="settings"></div>
+    <div class="settings-modal-panel" role="dialog" aria-modal="true" aria-labelledby="settings-modal-title">
+        <div class="settings-modal-header">
+            <div>
+                <p class="modal-eyebrow">SETTINGS</p>
+                <h3 id="settings-modal-title">Admin Settings</h3>
+            </div>
+            <button class="settings-modal-close" id="settings-modal-close" type="button" aria-label="Close" data-modal-close="settings">
+                &times;
+            </button>
+        </div>
+        <div class="settings-tabs" role="tablist" aria-label="Settings sections">
+            <button type="button" class="settings-tab is-active" data-tab="security" role="tab" aria-selected="true">Security</button>
+            <button type="button" class="settings-tab" data-tab="tokens" role="tab" aria-selected="false">Tokens</button>
+            <button type="button" class="settings-tab" data-tab="access" role="tab" aria-selected="false">Access</button>
+            <button type="button" class="settings-tab" data-tab="cache" role="tab" aria-selected="false">Cache</button>
+        </div>
+        <div class="settings-section" data-panel="security">
+            <h4>Password</h4>
+            <form id="settings-password-form" class="settings-form">
+                <input class="visually-hidden" type="text" name="username" autocomplete="username" value="admin">
+                <label for="settings-current-password">Current Password</label>
+                <input id="settings-current-password" name="current_password" type="password" autocomplete="current-password" required>
+                <label for="settings-new-password">New Password</label>
+                <input id="settings-new-password" name="new_password" type="password" autocomplete="new-password" minlength="6" required>
+                <label for="settings-confirm-password">Confirm New Password</label>
+                <input id="settings-confirm-password" name="confirm_password" type="password" autocomplete="new-password" minlength="6" required>
+                <label class="settings-checkbox" for="settings-logout-all">
+                    <input id="settings-logout-all" type="checkbox">
+                    Logout all sessions after password change
+                </label>
+                <div class="settings-error" id="settings-password-error" role="alert" aria-live="polite"></div>
+                <button type="submit" class="settings-action" id="settings-password-submit">Update Password</button>
+            </form>
+            <div class="settings-divider"></div>
+            <h4>Session Secret</h4>
+            <div class="settings-row">
+                <code class="settings-token">Rotate to force logout</code>
+                <button type="button" class="settings-action" id="settings-session-rotate">Rotate</button>
+            </div>
+            <p class="settings-hint">Requires server restart to take effect.</p>
+        </div>
+        <div class="settings-section" data-panel="tokens" hidden>
+            <h4>API Token</h4>
+            <div class="settings-row">
+                <code class="settings-token" id="settings-api-token">********</code>
+                <button type="button" class="settings-action settings-action--ghost" id="settings-api-copy">Copy</button>
+                <button type="button" class="settings-action" id="settings-api-rotate">Rotate</button>
+            </div>
+            <p class="settings-hint">Use this token for external API clients.</p>
+        </div>
+        <div class="settings-section" data-panel="tokens" hidden>
+            <h4>Admin Token</h4>
+            <div class="settings-row">
+                <code class="settings-token">Hidden</code>
+                <button type="button" class="settings-action" id="settings-admin-rotate">Rotate</button>
+            </div>
+            <p class="settings-hint">Rotating revokes admin API access until updated.</p>
+        </div>
+        <div class="settings-section" data-panel="access" hidden>
+            <h4>Admin Allowlist</h4>
+            <textarea id="settings-allowlist" class="settings-textarea" rows="3" placeholder="One IP per line"></textarea>
+            <button type="button" class="settings-action" id="settings-allowlist-save">Save Allowlist</button>
+            <p class="settings-hint">Leave empty to allow all IPs.</p>
+        </div>
+        <div class="settings-section" data-panel="cache" hidden>
+            <h4>Print Cache</h4>
+            <div class="settings-row">
+                <div>
+                    <div class="settings-cache-label">Cache size</div>
+                    <div class="settings-hint" id="settings-cache-size">Loading...</div>
+                </div>
+                <button type="button" class="settings-action settings-action--ghost" id="settings-cache-refresh">Refresh</button>
+            </div>
+            <div class="settings-divider"></div>
+            <h4>Cleanup</h4>
+            <div class="settings-row">
+                <select id="settings-cache-age" class="settings-select">
+                    <option value="7">1 week</option>
+                    <option value="30">1 month</option>
+                    <option value="90">3 months</option>
+                    <option value="180">6 months</option>
+                </select>
+                <button type="button" class="settings-action" id="settings-cache-clean">Clean Cache</button>
+            </div>
+            <p class="settings-hint" id="settings-cache-clean-result"></p>
+            <div class="settings-divider"></div>
+            <h4>Uploads</h4>
+            <label class="settings-checkbox" for="settings-cache-upload-toggle">
+                <input id="settings-cache-upload-toggle" type="checkbox">
+                Add uploaded file print-cache
+            </label>
+        </div>
+    </div>
+</div>
