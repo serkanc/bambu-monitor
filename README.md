@@ -181,5 +181,12 @@ This repository was created with AI-assisted development and reviewed by a human
 
 ---
 
+## Follow & Support
+
+If you find this project useful, feel free to follow and support me on Instagram:
+[@sigma3dprinter](https://instagram.com/sigma3dprinter)
+
+---
+
 ## License
 MIT
