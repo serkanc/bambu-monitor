@@ -100,7 +100,7 @@ class ServiceRegistry:
             serial="0000000000000000",
             printer_model="Unconfigured",
             external_camera_url=None,
-            username=DEFAULT_USERNAME,
+            printer_username=DEFAULT_USERNAME,
             mqtt_port=DEFAULT_MQTT_PORT,
             ftp_port=DEFAULT_FTP_PORT,
             cam_port=DEFAULT_CAM_PORT,
