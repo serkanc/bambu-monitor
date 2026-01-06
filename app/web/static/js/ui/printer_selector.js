@@ -394,7 +394,7 @@ function initializePrinterSelector(global) {
                     isContextMenuOpen: false,
                     contextMenuPosition: null,
                     contextMenuPrinterId: null,
-                    modalStatus: { type: 'info', text: 'Bilgileri doldurun' },
+                    modalStatus: { type: 'info', text: 'Fill in the information' },
                     modalError: '',
                     modalPreview: null,
                     isPreviewVisible: false,
@@ -716,7 +716,7 @@ function initializePrinterSelector(global) {
                 } else {
                     const message =
                         preview.emptyMessage ||
-                        'Dogrulama tamamlandiginda modul bilgileri burada gorunecek.';
+                        'Module information will be displayed here once verification is complete.';
                     this.previewModulesList.innerHTML = `<p class="preview-placeholder">${message}</p>`;
                 }
             }
@@ -1847,7 +1847,7 @@ function initializePrinterSelector(global) {
             if (this.modalForm) {
                 this.modalForm.reset();
             }
-            this.setModalStatus('info', 'Bilgileri doldurun');
+            this.setModalStatus('info', 'Fill in the information');
             this.showModalError('');
             this.modalPreview = null;
             this.setPreviewVisibility(false);
@@ -1954,13 +1954,13 @@ function initializePrinterSelector(global) {
             const rawCameraPassword = (this.externalCameraPasswordInput?.value || '').toString();
             if (externalEnabled && !rawCameraUrl) {
                 this.modalSubmitDisabled = true;
-                this.showModalError('External camera URL gerekli.');
+                this.showModalError('External camera URL is required.');
                 this.setSubmitLabel('Verify');
                 return;
             }
             if (externalEnabled && rawCameraPassword && !rawCameraUsername) {
                 this.modalSubmitDisabled = true;
-                this.showModalError('External camera username gerekli.');
+                this.showModalError('External camera username is required.');
                 this.setSubmitLabel('Verify');
                 return;
             }
@@ -2178,18 +2178,18 @@ function initializePrinterSelector(global) {
             const changeState = this.getFormChangeState();
             const payload = changeState?.payload || this._buildFormPayload();
             if (!payload || !payload.id || !payload.printer_ip || !payload.serial || payload.access_code.length !== 8) {
-                this.showModalError('Lutfen tum alanlari eksiksiz ve dogru doldurun.');
+                this.showModalError('Please fill out all required fields.');
                 return;
             }
             if (this.externalCameraToggle?.checked && !payload.external_camera_url) {
-                this.showModalError('External camera URL gerekli.');
+                this.showModalError('External camera URL is required.');
                 return;
             }
             if (this.externalCameraToggle?.checked) {
                 const username = this.externalCameraUsernameInput?.value?.trim() || '';
                 const password = this.externalCameraPasswordInput?.value || '';
                 if (password && !username) {
-                    this.showModalError('External camera username gerekli.');
+                    this.showModalError('External camera username is required.');
                     return;
                 }
             }
@@ -2209,7 +2209,7 @@ function initializePrinterSelector(global) {
 
             this.showModalError('');
             this.isAdding = true;
-            this.setModalStatus('info', 'Cihaza baglaniliyor...');
+            this.setModalStatus('info', 'Connecting to printer...');
             this.setButtonLoading(this.modalSubmitBtn, true);
             this.hideAddArea();
 
@@ -2227,12 +2227,12 @@ function initializePrinterSelector(global) {
                 this.setPreviewVisibility(true);
                 this.showAddArea();
                 this.setAddButtonLabel(this.isEditing ? 'Apply' : 'Add Printer');
-                this.setModalStatus('success', `${response?.printer?.model || payload.id} dogrulandi`);
+                this.setModalStatus('success', `${response?.printer?.model || payload.id} verified successfully`);
                 this.setSubmitLabel('Verify again');
             } catch (error) {
                 console.error('Printer verification failed', error);
                 this.showModalError(error?.message || 'Printer could not be verified. Please check the details.');
-                this.setModalStatus('error', 'Baglanti hatasi');
+                this.setModalStatus('error', 'Connnection Error');
                 this.isVerified = false;
                 this.verificationPayloadHash = null;
                 this.hideAddArea();
@@ -2250,13 +2250,13 @@ function initializePrinterSelector(global) {
                 return;
             }
             if (!this.isEditing || !this.editingPrinterId) {
-                this.showModalError('Guncellenecek yazici secilmedi.');
-                this.setModalStatus('error', 'Secim gerekli');
+                this.showModalError('No printer has been selected to update.');
+                this.setModalStatus('error', 'Selection required');
                 return;
             }
             this.showModalError('');
             this.isAdding = true;
-            this.setModalStatus('info', 'Guncelleme islemi');
+            this.setModalStatus('info', 'Updating Printer...');
             this.setButtonLoading(this.modalSubmitBtn, true);
             const endpoint = `/api/status/printers/${encodeURIComponent(this.editingPrinterId)}`;
             try {
@@ -2267,14 +2267,14 @@ function initializePrinterSelector(global) {
                     body: JSON.stringify({ ...payload, skip_verify: true }),
                 });
                 await parseApiResponse(rawResponse);
-                showToast(`${payload.id} basariyla guncellendi`, 'success');
+                showToast(`${payload.id} updated successfully`, 'success');
                 await this.loadPrinters();
                 this.emitPrinterConfigUpdated();
                 this.closeAddPrinterModal({ force: true });
             } catch (error) {
                 console.error('Failed to update printer', error);
                 this.showModalError(error?.message || 'Printer could not be updated. Please verify the details.');
-                this.setModalStatus('error', 'Baglanti hatasi');
+                this.setModalStatus('error', 'Connnection Error');
             } finally {
                 this.setButtonLoading(this.modalSubmitBtn, false);
                 this.isAdding = false;
@@ -2288,26 +2288,26 @@ function initializePrinterSelector(global) {
             }
             const editingMode = this.isEditing;
             if (editingMode && !this.editingPrinterId) {
-                this.showModalError('Guncellenecek yazici secilmedi.');
-                this.setModalStatus('error', 'Secim gerekli');
+                this.showModalError('No printer has been selected to update.');
+                this.setModalStatus('error', 'Selection required');
                 return;
             }
             if (!this.isVerified) {
-                this.showModalError('Lutfen once yazici bilgilerini dogrulayin.');
-                this.setModalStatus('error', 'Dogrulama gerekli');
+                this.showModalError('Please verify the printer details first.');
+                this.setModalStatus('error', 'Verification required');
                 return;
             }
 
             const payload = this._buildFormPayload();
             if (!payload) {
-                this.showModalError('Lutfen tum alanlari tekrar doldurun.');
+                this.showModalError('Please fill out all required fields.');
                 return;
             }
 
             const payloadHash = this._buildPayloadHash(payload);
             if (payloadHash !== this.verificationPayloadHash) {
-                this.showModalError('Formda degisiklik yapildi, lutfen yeniden doğrulayin.');
-                this.setModalStatus('error', 'Bilgiler degisti');
+                this.showModalError('Form has been modified, please verify again.');
+                this.setModalStatus('error', 'Information changed');
                 this.isVerified = false;
                 this.verificationPayloadHash = null;
                 this.hideAddArea();
@@ -2323,7 +2323,7 @@ function initializePrinterSelector(global) {
 
             this.showModalError('');
             this.isAdding = true;
-            this.setModalStatus('info', editingMode ? 'Guncelleme islemi' : 'Yazici ekleniyor...');
+            this.setModalStatus('info', editingMode ? 'Updating printer...' : 'Adding printer...');
             this.setButtonLoading(this.modalAddBtn, true);
 
             let added = false;
@@ -2337,7 +2337,7 @@ function initializePrinterSelector(global) {
                 const response = await parseApiResponse(rawResponse);
                 this.renderModalDetails(response);
                 showToast(
-                    `${response?.printer?.model || payload.id} ${editingMode ? 'basariyla guncellendi' : 'basariyla eklendi'}`,
+                    `${response?.printer?.model || payload.id} ${editingMode ? 'successfully updated' : 'successfully added'}`,
                     'success',
                 );
                 await this.loadPrinters();
@@ -2351,7 +2351,7 @@ function initializePrinterSelector(global) {
                     : 'Printer could not be added. Please verify the details.';
                 console.error(editingMode ? 'Failed to update printer' : 'Failed to add printer', error);
                 this.showModalError(error?.message || friendlyMessage);
-                this.setModalStatus('error', 'Baglanti hatasi');
+                this.setModalStatus('error', 'Connection error');
             } finally {
                 this.setButtonLoading(this.modalAddBtn, false);
                 this.isAdding = false;
@@ -2372,7 +2372,7 @@ function initializePrinterSelector(global) {
                 model: response.printer?.model || '-',
                 firmware: response.firmware || '-',
                 modules: Array.isArray(response.modules) ? response.modules : [],
-                emptyMessage: 'Modul bilgisi alinmadi.',
+                emptyMessage: 'Module information not available.',
             };
         }
 
