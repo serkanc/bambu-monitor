@@ -184,6 +184,12 @@ class ConnectionOrchestrator:
     async def _resume_dependents(self) -> None:
         if self._ftps_service:
             self._ftps_service.set_reconnect_paused(False)
+            # If FTPS was previously started but disconnected, explicitly trigger a reconnect
+            try:
+                if self._services_started.get("ftps"):
+                    await self._ftps_service.check_and_reconnect()
+            except Exception:
+                logger.debug("FTPS check_and_reconnect failed during resume", exc_info=True)
         if self._camera_service:
             self._camera_service.set_reconnect_paused(False)
         await self._ensure_ftps_running()
