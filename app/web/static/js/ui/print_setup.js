@@ -711,9 +711,9 @@ const initPrintSetup = (global = typeof window !== "undefined" ? window : global
 
         const normalizeType = printSetupUtils.normalizeType || ((value) => (value || "").toUpperCase().trim());
         const normalizeColor = (value) => {
-            if (!value) return "";
+            if (!value) return "999999";
             const raw = String(value).trim().replace(/\s+/g, "");
-            if (!raw) return "";
+            if (!raw) return "999999";
             let hex = raw.replace(/^#/, "");
             if (/^[0-9A-Fa-f]{3}$/.test(hex)) {
                 hex = hex
@@ -727,7 +727,8 @@ const initPrintSetup = (global = typeof window !== "undefined" ? window : global
             if (/^[0-9A-Fa-f]{6}$/.test(hex)) {
                 return hex.toUpperCase();
             }
-            return raw.toUpperCase().replace(/[^A-Z0-9]/g, "");
+            // Fallback: invalid biçimse hexToRgb ile uyumlu default renk dön
+            return "999999";
         };
         const normalizeIdx = printSetupUtils.normalizeIdx || ((value) => (value || "").toUpperCase().trim());
         const toDisplayColor = (normalized, fallback) => {
@@ -815,16 +816,27 @@ const initPrintSetup = (global = typeof window !== "undefined" ? window : global
                 const filamentType = normalizeType(baseFilament.type);
                 const filamentColor = normalizeColor(baseFilament.color);
                 const filamentIdx = normalizeIdx(baseFilament.tray_info_idx);
+                
+                // Renk valid mi? (normalize sonrası fallback değeri değilse = valid)
+                const isColorValid = filamentColor !== "999999";
+                
                 const candidates = trayMeta.filter(
                     (tray) =>
                         !tray.isExternal &&
                         !tray.isEmptySlot &&
                         this._isTypeCompatible(filamentType, tray.type)
                 );
-                const findExactIdx = () =>
-                    candidates.find((tray) => filamentIdx && tray.idx && filamentIdx === tray.idx) || null;
-                const findExactColor = () =>
-                    candidates.find(
+                const findExactIdx = () => {
+                    // tray_info_idx duplicate olabileceğinden, reliable değil
+                    // Skip idx matching, direkt color+type matching yap
+                    return null;
+                };
+                const findExactColor = () => {
+                    // Eğer renk invalid ise color matching yapma
+                    if (!isColorValid) {
+                        return null;
+                    }
+                    return candidates.find(
                         (tray) =>
                             filamentType &&
                             tray.type &&
@@ -833,6 +845,8 @@ const initPrintSetup = (global = typeof window !== "undefined" ? window : global
                             tray.color &&
                             filamentColor === tray.color
                     ) || null;
+                };
+                
                 const hexToRgb = (hex) => {
                     if (!hex || !/^[0-9A-F]{6}$/i.test(hex)) {
                         return null;
@@ -851,6 +865,10 @@ const initPrintSetup = (global = typeof window !== "undefined" ? window : global
                     return dr * dr + dg * dg + db * db;
                 };
                 const findClosestColor = () => {
+                    // Eğer renk invalid ise color matching yapma
+                    if (!isColorValid) {
+                        return null;
+                    }
                     const filamentRgb = hexToRgb(filamentColor);
                     if (!filamentRgb) {
                         return null;
@@ -874,7 +892,8 @@ const initPrintSetup = (global = typeof window !== "undefined" ? window : global
                 const idxMatch = findExactIdx();
                 const colorMatch = idxMatch ? null : findExactColor();
                 const closestMatch = !idxMatch && !colorMatch ? findClosestColor() : null;
-                const fallback = candidates[0] || null;
+                // Fallback: round-robin distribution (farklı filaments'a farklı slots)
+                const fallback = candidates.length > 0 ? candidates[idx % candidates.length] : null;
                 const chosen = idxMatch || colorMatch || closestMatch || fallback;
                 if (chosen) {
                     mapping[idx] = chosen.slotIndex;
@@ -962,9 +981,9 @@ const initPrintSetup = (global = typeof window !== "undefined" ? window : global
 
         const normalizeType = printSetupUtils.normalizeType || ((value) => (value || "").toUpperCase().trim());
         const normalizeColor = (value) => {
-            if (!value) return "";
+            if (!value) return "999999";
             const raw = String(value).trim().replace(/\s+/g, "");
-            if (!raw) return "";
+            if (!raw) return "999999";
             let hex = raw.replace(/^#/, "");
             if (/^[0-9A-Fa-f]{3}$/.test(hex)) {
                 hex = hex
@@ -978,7 +997,8 @@ const initPrintSetup = (global = typeof window !== "undefined" ? window : global
             if (/^[0-9A-Fa-f]{6}$/.test(hex)) {
                 return hex.toUpperCase();
             }
-            return raw.toUpperCase().replace(/[^A-Z0-9]/g, "");
+            // Fallback: invalid biçimse hexToRgb ile uyumlu default renk dön
+            return "999999";
         };
         const normalizeIdx = printSetupUtils.normalizeIdx || ((value) => (value || "").toUpperCase().trim());
 
